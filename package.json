@@ -1,0 +1,30 @@
+{
+  "name": "3105-backendactivity",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vehchu/3105-BackendActivity.git"
+  },
+  "keywords": [
+    "3105"
+  ],
+  "author": "Victorienne Tiu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vehchu/3105-BackendActivity/issues"
+  },
+  "homepage": "https://github.com/vehchu/3105-BackendActivity#readme",
+  "description": "",
+  "dependencies": {
+    "bash": "^0.0.1",
+    "express": "^4.21.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "node": "^20.18.0"
+  }
+}
