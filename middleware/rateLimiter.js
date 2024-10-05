@@ -1,24 +1,24 @@
 const requests = {}
 
 export default function rateLimiter(req, res, next)  {
-        const userIP = req.ip;
-        const currentTime = Date.now();
-        const windowTime = 30 * 1000; 
-        const requestLimit = 5;
+        const userIP = req.ip
+        const currentTime = Date.now()
+        const windowTime = 30 * 1000
+        const requestLimit = 5
 
         if (!requests[userIP]) {
-            requests[userIP] = { count: 0, startTime: currentTime };
+            requests[userIP] = { count: 0, startTime: currentTime }
         }
 
         if (currentTime - requests[userIP].startTime > windowTime) {
-            requests[userIP].count = 1;
+            requests[userIP].count = 1
             requests[userIP].startTime = currentTime;
         } else {
-            requests[userIP].count += 1;
+            requests[userIP].count += 1
             if (requests[userIP].count > requestLimit) {
-                return res.status(429).send("Too many requests, please try again later."); 
+                return res.status(429).send("Too many requests, please try again later.")
             }
         }
 
-        next(); 
-};
+        next()
+}

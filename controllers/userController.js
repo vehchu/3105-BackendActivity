@@ -51,15 +51,13 @@ export const login = async (req, res) => {
     // Check if the entered password matches the stored password
     if (user.password !== value.password) return res.status(400).json({ message: 'Invalid password' })
 
-
     const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' })
     res.json({ token })
 }
 
 // Profile controller
 export const profile = (req, res) => {
-    const user = userModel.findUserByUsername(req.user.username)
-    if (!user) return res.status(404).json({ message: 'User not found' })
+    const users = userModel.getAllUsers()    
 
-    res.json({ id: user.id, username: user.username, email: user.email })
+    res.json(users)
 }

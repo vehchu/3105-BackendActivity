@@ -5,20 +5,20 @@ const usersFilePath = path.join(process.cwd(), 'data/users.json');
 
 // Read from JSON file
 const readUsersFromFile = () => {
-  const data = fs.readFileSync(usersFilePath, 'utf-8'); // Specify 'utf-8' encoding
-  return JSON.parse(data);
-};
+  const data = fs.readFileSync(usersFilePath, 'utf-8')
+  return JSON.parse(data)
+}
 
 // Write to JSON file
 const writeUsersToFile = (users) => {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf-8');
-};
+  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf-8')
+}
 
 // Functions to export
 const findUserByUsername = (username) => {
-  const users = readUsersFromFile();
-  return users.find(user => user.username === username);
-};
+  const users = readUsersFromFile()
+  return users.find(user => user.username === username)
+}
 
 const generateUniqueId = (users) => {
     if (users.length === 0) return 1 // Start IDs at 1 if no users exist
@@ -30,8 +30,8 @@ const generateUniqueId = (users) => {
 const createUser = (user) => {
   const users = readUsersFromFile()
   const newUser = {
-    id: generateUniqueId(users),
-    ...user
+    ...user,
+    id: generateUniqueId(users)
   }
   users.push(newUser)
   writeUsersToFile(users)
@@ -43,9 +43,7 @@ const getAllUsers = () => {
   return readUsersFromFile()
 }
 
-// Exporting all the functions as default
+
 export default {
-  findUserByUsername,
-  createUser,
-  getAllUsers
+  findUserByUsername, createUser, getAllUsers
 }
