@@ -1,16 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-// Path to the JSON file
 const usersFilePath = path.join(process.cwd(), 'data/users.json');
 
-// Helper function to read from JSON file
+// Read from JSON file
 const readUsersFromFile = () => {
   const data = fs.readFileSync(usersFilePath, 'utf-8'); // Specify 'utf-8' encoding
   return JSON.parse(data);
 };
 
-// Helper function to write to JSON file
+// Write to JSON file
 const writeUsersToFile = (users) => {
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf-8');
 };
@@ -21,19 +20,32 @@ const findUserByUsername = (username) => {
   return users.find(user => user.username === username);
 };
 
+const generateUniqueId = (users) => {
+    if (users.length === 0) return 1 // Start IDs at 1 if no users exist
+    const maxId = users.reduce((max, user) => Math.max(max, user.id), 0)
+    return maxId + 1 // Assign the next ID
+}
+
+
 const createUser = (user) => {
-  const users = readUsersFromFile();
-  users.push(user);
-  writeUsersToFile(users);
-};
+  const users = readUsersFromFile()
+  const newUser = {
+    id: generateUniqueId(users),
+    ...user
+  }
+  users.push(newUser)
+  writeUsersToFile(users)
+
+  return newUser
+}
 
 const getAllUsers = () => {
-  return readUsersFromFile();
-};
+  return readUsersFromFile()
+}
 
 // Exporting all the functions as default
 export default {
   findUserByUsername,
   createUser,
   getAllUsers
-};
+}

@@ -6,13 +6,14 @@ import Joi from 'joi'
 export const register = async (req, res) => {
     const registerSchema = Joi.object({
         username: Joi.string().min(3).required(),
-        password: Joi.string().min(3).required(), // Password is still required but not hashed
+        password: Joi.string().min(3).required(),
         email: Joi.string().email({ 
             minDomainSegments: 2, 
-            tlds: { allow: ['com', 'net'] } 
+            tlds: { allow: ['com'] } 
         }).required()
     })
 
+    // Validate input
     const { error, value } = registerSchema.validate(req.body)
     if (error) return res.status(400).json({ message: error.details[0].message })
 
@@ -20,13 +21,12 @@ export const register = async (req, res) => {
         return res.status(400).json({ message: 'User already exists' })
     }
 
-    // Create user without hashing the password
     const newUser = userModel.createUser({
         username: value.username,
-        password: value.password, // Store password as plain text (not recommended for production)
+        password: value.password,
         email: value.email
     })
-
+    
     return res.json({
         msg: 'Successfully Registered!',
         data: newUser,
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
     // Check if the entered password matches the stored password
     if (user.password !== value.password) return res.status(400).json({ message: 'Invalid password' })
 
-    // Generate token
+
     const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' })
     res.json({ token })
 }
