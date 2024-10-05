@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'fs'
+import path from 'path'
 
-const usersFilePath = path.join(process.cwd(), 'data/users.json');
+const usersFilePath = path.join(process.cwd(), 'data/users.json')
 
 // Read from JSON file
 const readUsersFromFile = () => {
@@ -26,7 +26,6 @@ const generateUniqueId = (users) => {
     return maxId + 1 // Assign the next ID
 }
 
-
 const createUser = (user) => {
   const users = readUsersFromFile()
   const newUser = {
@@ -42,7 +41,6 @@ const createUser = (user) => {
 const getAllUsers = () => {
   return readUsersFromFile()
 }
-
 
 export default {
   findUserByUsername, createUser, getAllUsers
